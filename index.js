@@ -1,8 +1,16 @@
 const express = require('express');
 
+const authRoutes = require('./routes/authRoutes');
+const setCookies = require('./services/cookieSession');
+require('./models/users');
+require('./services/mongoose');
+
 const app = express();
 
-app.get('/', (req, res) => res.send({ hi: 'you there' }));
+require('./services/passport-config');
+
+authRoutes(app);
+setCookies(app);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`server is listening on port ${PORT}`));
